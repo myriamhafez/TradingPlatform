@@ -91,23 +91,15 @@ public class TradeUI {
                     break;
                     case "quantity":
                     System.out.println("Please enter what quantity you want to trade instead: ");
-                    int newQuantity = in.nextInt();
-
+                    int newQuantity = validateNegatives(in);
                     modified.setQuantity(newQuantity);
-                    while(newQuantity < 0){
-                    System.out.println("Cannot enter a negative quantity. Enter a valid quantity: ");
-                    newQuantity = in.nextInt();
-                    }
+                    
                     break;
 
                     case "price":
                     System.out.println("Please enter the new price to be set: ");
-                    int newPrice = in.nextInt();
+                    int newPrice = validateNegatives(in);
 
-                    while(newPrice < 0){
-                    System.out.println("Cannot enter a negative price. Enter a valid price: ");
-                    newPrice = in.nextInt();
-                    }
                     modified.setPrice(newPrice);
                     break;
                 }
@@ -175,5 +167,17 @@ public class TradeUI {
         System.out.println("Please enter a valid input: y/n");
     }
 }
+
+    private static int validateNegatives(Scanner in){
+        while(true){
+            int input = in.nextInt();
+
+            if(input > 0){
+                return input;
+            }
+
+            System.out.println("Input cannot be negative. Please enter a valid input: ");
+        }
+    }
 
 }
