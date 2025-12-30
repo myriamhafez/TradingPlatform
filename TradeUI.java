@@ -57,12 +57,8 @@ public class TradeUI {
             int exit = 0;
             while(exit != 1){
             System.out.println("Please enter the ID number of the trade you want to " + (answer.equals("cancel") ? "cancel" : "modify") +": ");
-            int num = in.nextInt();
-            
-            while(num < 0 || num > trades.size()){
-                System.out.println("This ID number does not exist. Please enter a valid ID number: ");
-                num = in.nextInt();
-            }
+            int num = validateTradeNumber(in, trades);
+
             Trade modified = trades.get(num);
             if(answer.equals("cancel")){
                 tradeOp.cancelTrade(modified);
@@ -70,15 +66,9 @@ public class TradeUI {
                 break;
             } else {
             System.out.println("Please enter what you want to modify: direction, type, quantity, price");
-            String mod = in.next();
+            String mod = validateModification(in);
 
-            while(!(mod.equals("direction")
-                    || mod.equals("type")
-                    || mod.equals("quantity")
-                    || mod.equals("price"))){
-            System.out.println("Please enter a valid input: direction, type, quantity, price");
-                mod = in.next();
-            }
+            
 
                 switch(mod){
                     case "direction":
@@ -180,4 +170,27 @@ public class TradeUI {
         }
     }
 
+    private static int validateTradeNumber(Scanner in, Map<Integer, Trade> trades){
+        while(true){
+            int input = in.nextInt();
+
+            if(input > 0 && input <= trades.size()){
+                return input;
+            }
+
+            System.out.println("Trade does not exist. Please enter a valid trade number: ");
+        }
+    }
+
+    private static String validateModification(Scanner in){
+        while(true){
+            String input = in.next().toLowerCase();
+
+            if(input.equals("direction") || input.equals("type")|| input.equals("quantity") || input.equals("price"))
+            return input;
+        
+            System.out.println("Please enter a valid field to modify: direction, type, quantity, price");
+    }
+
+}
 }
