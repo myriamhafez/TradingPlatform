@@ -61,6 +61,8 @@ public class TradeUI {
 
             Trade modified = trades.get(num);
             if(answer.equals("cancel")){
+                tradeOp.validateTrade(modified);
+                tradeOp.acceptTrade(modified);
                 tradeOp.cancelTrade(modified);
                 System.out.println("Trade successfully cancelled: " + modified);
                 break;
